@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    index
+{% endblock %}
+
+{% block main %}
+    <head>
+        <h1>You are in INDEX as {{name}}</h1>
+    </head>
+    <body>
+        <table>
+        <thead>
+            <tr>
+                <th> Symbol </th>
+                <th> | </th>
+                <th> Quantity </th>
+                <th> | </th>
+                <th> Total price </th>
+                <th> | </th>
+                <th> Date </th>
+            </tr>
+        </thead>
+        <tbody CLASS="text-center">
+            {% for share in user_shares %}
+
+            <tr>
+                <td>{{share.symbol}}</td>
+                <td> | </td>
+                <td>{{share.quantity}}</td>
+                <td> | </td>
+                <td>{{share.total_price}}</td>
+                <td> | </td>
+                <td>{{share.date}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+
+    </table>
+    </body>
+{% endblock %}

@@ -1,3 +1,4 @@
+CREATE TABLE TB_USERS(ID INT PRIMARY KEY AUTO_INCREMENT, EMAIL VARCHAR(255), PASSWORD VARCHAR(255));
 INSERT INTO tb_sales(seller_name,visited,deals,amount,date) VALUES ('Barry Allen',121,67,18196.0,'2022-06-16');
 INSERT INTO tb_sales(seller_name,visited,deals,amount,date) VALUES ('Logan',26,14,4255.0,'2022-06-14');
 INSERT INTO tb_sales(seller_name,visited,deals,amount,date) VALUES ('Padme',55,42,13249.0,'2022-06-14');
@@ -115,3 +116,4 @@ INSERT INTO tb_sales(seller_name,visited,deals,amount,date) VALUES ('Padme',58,4
 INSERT INTO tb_sales(seller_name,visited,deals,amount,date) VALUES ('Kal-El',55,35,20474.0,'2021-07-05');
 INSERT INTO tb_sales(seller_name,visited,deals,amount,date) VALUES ('Anakin',84,34,5787.0,'2021-07-01');
 INSERT INTO tb_sales(seller_name,visited,deals,amount,date) VALUES ('Padme',79,68,11976.0,'2021-06-27');
+INSERT INTO tb_users(email , password) VALUES ('pedroclauria@gmail.com',123);

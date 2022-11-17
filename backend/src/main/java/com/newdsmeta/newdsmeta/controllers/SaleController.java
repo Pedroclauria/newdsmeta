@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +15,7 @@ import com.newdsmeta.newdsmeta.services.SaleService;
 import com.newdsmeta.newdsmeta.services.SmsService;
 
 @RestController
-@RequestMapping(value = "/sales")
+@RequestMapping(value = "/sales", method = RequestMethod.POST)
 public class SaleController {
 	
 	@Autowired
@@ -33,9 +34,24 @@ public class SaleController {
 		return service.findSales(minDate, maxDate, pageable);
 	}
 	
+	@GetMapping(value = "/search-name")
+	public Page<Sale> searchByName(
+			@RequestParam(defaultValue = "") String seller_name,
+			Pageable pageable){
+			Page<Sale> result = service.searchName(seller_name, pageable);
+		return result;
+	}
+	
+	
+	
 	@GetMapping("/{id}/notification")
 	public void notifySms(@PathVariable Long id) {
 		smsService.sendSms(id);
+	}
+	
+	@GetMapping("/{id}/delete")
+	public void saleDelete(@PathVariable Long id) {
+		service.saleDelete(id);
 	}
 	
 	}

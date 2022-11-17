@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    history
+{% endblock %}
+
+{% block main %}
+    <h1>HISTORY</h1>
+
+    <body>
+        <table>
+        <thead>
+            <tr>
+                <th> Symbol </th>
+                <th> | </th>
+                <th> Price </th>
+                <th> | </th>
+                <th> Date </th>
+                <th> | </th>
+                <th> Transaction </th>
+            </tr>
+        </thead>
+        <tbody CLASS="text-center">
+            {% for row in hist %}
+                {% if row["trans"] == 0%}
+                <tr>
+                    <td>{{row.symbol}}</td>
+                    <td> | </td>
+                    <td>{{row.price}}</td>
+                    <td> | </td>
+                    <td>{{row.date}}</td>
+                    <td> | </td>
+                    <td>BUY</td>
+                </tr>
+                {% elif row["trans"] == 1%}
+                <tr>
+                    <td>{{row.symbol}}</td>
+                    <td> | </td>
+                    <td>{{row.price}}</td>
+                    <td> | </td>
+                    <td>{{row.date}}</td>
+                    <td> | </td>
+                    <td>SELL</td>
+                </tr>
+                {% endif%}
+            {% endfor %}
+        </tbody>
+
+
+    </table>
+    </body>
+{% endblock %}

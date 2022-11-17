@@ -1,43 +1,86 @@
-import logo from '../../assets/img/header.svg';
+import React, { ChangeEvent, useCallback, useContext, useState } from "react";
+import SalesCard from "../SalesCard";
+import axios from "axios";
+import { BASE_URL } from "../../utils/request";
+import {User} from "../../models/user";
 import './styles.css';
-import Header from '../Header'
+import {useForm } from 'react-hook-form'
+import Insert from "../Insert";
+import { AuthContext } from "../../contexts/Auth/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
-function Login() {
-  const x = 1;
-  return (
-    <>
-    <nav className="navbar navbar-expand-md navbar-light bg-light border">
-            <a className="navbar-brand" href="/"><span className="blue">C</span><span className="red">$</span><span className="yellow">5</span><span className="green">0</span> <span className="red">Finance</span></a>
-            <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" className="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbar">
-                    <ul className="navbar-nav ml-auto mt-2">
-                        <li className="nav-item"><a className="nav-link" href="/register">Register</a></li>
-                        <li className="nav-item"><a className="nav-link" href="/login">Log In</a></li>
-                    </ul>
-            </div>
-        </nav>
-      <Header />
-      <div className="login-title" >LOGIN</div>
-      <main>
+
+const Login = () => {
+  const navegate = useNavigate();
+    const auth = useContext(AuthContext);    
+   const [email, setEmail] = useState('');
+   const [password, setPassword] = useState('');
+
+   const handleEmailInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+   }
+
+   const handlePasswordInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+   }
+    
+    const handleSubmit = async () => {
+        if(email && password) { 
+            const isLogged = await auth.signin(email, password);
+            if(isLogged){
+                navegate('/')
+            }
+            else {
+                window.alert("Usuário inválido")
+            }
+        }
+    }
         
-          <form className="form-group" action="/login" method="post">
-            <div>
-              <input autoComplete='off' autoFocus name="username" placeholder="Username" type="text" />
-            </div>
-            <div>
-              <input  name="password" placeholder="Password" type="password" />
-            </div>
-            <button className="btn-btn-primary" type="submit">Log In</button>
-          </form>
-         
-      </main>
-    </>
-  )
 
+    
 
+    return (
+    <main>    
+        <div className="card-post">
+            <h1 className="fields">Entrar</h1>
+            <form  onSubmit={ handleSubmit}>
+                <div className="filds">
+                    <label htmlFor="exampleInputEmail1" className="htmlForm-label">
+                        Email:
+                    </label>
+                    <input
+                        type="email"
+                        className="htmlForm-control"
+                        id="email" 
+                        name="email"
+                        required autoFocus placeholder="Email"
+                        onChange={handleEmailInput}
+                        
+                        
+                    />
+                    <div id="emailHelp" className="htmlForm-text">Nunca compartilharemos seu e-mail com ninguém.</div>
+                </div>
+                <div className="fields">
+                    <label htmlFor="exampleInputPassword1" className="htmlForm-label">Senha:</label>
+                    <input 
+                    type="password" 
+                    className="htmlForm-control" 
+                    id="password" 
+                    name="password" 
+                    required placeholder="Senha" min={6}
+                        onChange={handlePasswordInput}
+                    />
+                </div>
+                
+                <div className="btn-post">
+                    <button onClick={handleSubmit} >Logar</button>
+                </div>
+
+            </form>
+        </div>
+    </main>    
+    )
 }
 
 export default Login;
